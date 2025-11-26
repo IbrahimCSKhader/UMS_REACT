@@ -1,23 +1,41 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-
+import useFetch from "../../hooks/useFetch";
+import React from "react";
 export default function Users() {
+  const {data,isLoading , isError}= useFetch("/users");
 
-  const getUsers = async () => {
-    try {
-      console.log("BASE URL:", import.meta.env.VITE_BASE_URL);
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/users`);
-      console.log("Users data:", response.data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  useEffect(() => {
-    getUsers();
-  }, []);
-
+  if (isError) {
+    return (
+      <div className="alert alert-danger">
+        Error: {isError}
+      </div>
+    );
+  }
   return (
-    <div>Users</div>
+    <>
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.users.map(user => (
+            <tr key={user.id}>
+              <td>{user.email}</td>
+              <td>{user.name}</td>
+              <td>{user.age}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {console.log("render:", data)}
+    </>
   );
 }

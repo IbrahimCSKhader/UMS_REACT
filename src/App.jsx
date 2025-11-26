@@ -1,7 +1,24 @@
 import React from "react";
-export default function App () {
-  return(
+import { Route, Routes } from "react-router-dom";
 
-  <h1>Hello, World!</h1>
-  )
+import User from "./pages/user/User.jsx";
+import Users from "./pages/user/Users.jsx";
+import Home from "./pages/home/Home.jsx";
+import Navbar from "./components/navbar/navbar.jsx";
+import Footer from "./components/footer/footer.jsx";
+
+export default function App() {
+  return (
+    <>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/user" element={<User />} />
+      </Routes>
+
+      <Footer />
+    </>
+  );
 }

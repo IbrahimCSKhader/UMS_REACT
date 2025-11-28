@@ -15,7 +15,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users/ADD" element={<Users />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/user/:id" element={<User />} />
       </Routes>
 
       <Footer />
